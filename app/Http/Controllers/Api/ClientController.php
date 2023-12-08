@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    // public function __construct() {
+    //     $this->middleware('auth:sanctum')->only(['store', 'update']);
+    // }
+
     /**
      * Display a listing of the resource.
      */
@@ -32,7 +36,9 @@ class ClientController extends Controller
             'password' => ['required'],
         ]);
 
+        $input['password']= bcrypt($input['password']);
         $client = Client::create($input);
+
         if($client->save()) {
             return response()->json([
                 'message: ' => 'Client created!',
@@ -119,4 +125,8 @@ class ClientController extends Controller
             ], 500);
         }
     }
+
+    // public function login(Request $request) {
+    //     return $request;
+    // }
 }
