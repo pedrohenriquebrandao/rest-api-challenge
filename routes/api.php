@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\ProducerController;
 use App\Http\Controllers\Api\SectorController;
 use App\Http\Controllers\Api\TicketController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +23,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::post('admin/login', [AuthController::class, 'adminLogin']);
+Route::post('client/login', [AuthController::class, 'clientLogin']);
+Route::post('producer/login', [AuthController::class, 'producerLogin']);
 
 /*
 |--------------------------------------------------------------------------
@@ -44,11 +51,13 @@ Route::delete('admins/{admin}', [AdminController::class, 'destroy']);
 |--------------------------------------------------------------------------
 */
 
-Route::get('clients', [ClientController::class, 'index']);
-Route::post('clients', [ClientController::class, 'store']);
-Route::get('clients/{client}', [ClientController::class, 'show']);
-Route::put('clients/{client}', [ClientController::class, 'update']);
-Route::delete('clients/{client}', [ClientController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('clients', [ClientController::class, 'index']);
+    Route::post('clients', [ClientController::class, 'store']);
+    Route::get('clients/{client}', [ClientController::class, 'show']);
+    Route::put('clients/{client}', [ClientController::class, 'update']);
+    Route::delete('clients/{client}', [ClientController::class, 'destroy']);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -123,3 +132,4 @@ Route::post('tickets', [TicketController::class, 'store']);
 Route::get('tickets/{ticket}', [TicketController::class, 'show']);
 Route::put('tickets/{ticket}', [TicketController::class, 'update']);
 Route::delete('tickets/{ticket}', [TicketController::class, 'destroy']);
+
