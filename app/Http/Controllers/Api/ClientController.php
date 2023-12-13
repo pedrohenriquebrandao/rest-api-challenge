@@ -36,6 +36,8 @@ class ClientController extends Controller
         $input['password']= bcrypt($input['password']);
         $client = Client::create($input);
 
+        $client->assignRole('client');
+
         if($client->save()) {
             return response()->json([
                 'message: ' => 'Client created!',

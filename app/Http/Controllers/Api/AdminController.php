@@ -35,6 +35,8 @@ class AdminController extends Controller
         $input['password']= bcrypt($input['password']);
         $admin = Admin::create($input);
 
+        $admin->assignRole('admin');
+
         if($admin->save()) {
             return response()->json([
                 'message: ' => 'Admin created!',
