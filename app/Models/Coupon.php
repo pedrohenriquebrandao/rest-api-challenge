@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Coupon extends Model
 {
@@ -20,4 +22,9 @@ class Coupon extends Model
         'label',
         'discount_percentage'
     ];
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class, 'coupon_id');
+    }
 }

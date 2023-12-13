@@ -59,7 +59,12 @@ class EventController extends Controller
         }
 
         return response()->json([
-            'event: ' => $event
+            'event: ' => [
+                'name' => $event->name,
+                'city' => $event->city,
+                'location' => $event->location,
+                'producer' => $event->producer->name,
+            ]
         ], 200);
     }
 
