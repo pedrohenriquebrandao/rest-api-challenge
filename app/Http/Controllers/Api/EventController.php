@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -29,10 +30,19 @@ class EventController extends Controller
             'name' => ['required'],
             'city' => ['required'],
             'location' => ['required'],
+            'banner' => ['required'],
             'producer_id' => ['required']
         ]);
 
         $event = Event::create($input);
+
+        if($request->hasFile('banner')) {
+            $file = $request->file('banner');
+            $filename = $file->getClientOriginalName();
+            $event->banner = $filename;
+
+            Storage::disk('s3')->putFileAs($file , 'banners/' . $filename); // Add the banner image to AWS S3
+        }
 
         if($event->save()) {
             return response()->json([
@@ -63,6 +73,7 @@ class EventController extends Controller
                 'name' => $event->name,
                 'city' => $event->city,
                 'location' => $event->location,
+                'banner' => $event->banner,
                 'producer' => $event->producer->name,
             ]
         ], 200);
@@ -73,7 +84,6 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $event = Event::find($id);
 
         if($event){
@@ -81,6 +91,7 @@ class EventController extends Controller
                 'name' => ['required'],
                 'city' => ['required'],
                 'location' => ['required'],
+                'banner'=> ['required'],
                 'producer_id' => ['required'],
             ]);
 
@@ -88,6 +99,16 @@ class EventController extends Controller
             $event->city = $input['city'];
             $event->location = $input['location'];
             $event->producer_id = $input['producer_id'];
+
+            if($request->hasFile('banner')) {
+                $file = $request->file('banner');
+                $filename = $file->getClientOriginalName();
+
+                Storage::disk('s3')->delete('banners/' . $event->banner); // Delete the older banner image from AWS S3
+                $event->banner = $filename;
+
+                Storage::disk('s3')->putFileAs($file , 'banners/' . $filename);
+            }
 
             if($event->save()){
                 return response()->json([
@@ -113,6 +134,10 @@ class EventController extends Controller
     {
         $event = Event::find($id);
 
+        if($event->banner) {
+            Storage::disk('s3')->delete('banners/' . $event->banner);
+        }
+
         if($event){
             $event->delete();
 
@@ -123,6 +148,18 @@ class EventController extends Controller
             return response([
                 'message: ' => 'Event not found!',
             ], 500);
+        }
+    }
+
+    /**
+     * Display the banner image of the event
+     */
+    public function getBannerImage($id) {
+
+        $event = Event::find($id);
+
+        if($event->banner) {
+            return Storage::disk('s3')->response('banners/' . $event->banner);
         }
     }
 }

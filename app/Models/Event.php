@@ -21,7 +21,9 @@ class Event extends Model
     protected $fillable = [
         'name',
         'city',
-        'location'
+        'location',
+        'banner',
+        'producer_id'
     ];
 
     public function producer(): BelongsTo

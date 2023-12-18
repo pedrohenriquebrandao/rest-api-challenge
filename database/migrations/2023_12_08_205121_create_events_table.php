@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('city');
             $table->string('location');
-            $table->unsignedBigInteger('producer_id')->nullable();
+            $table->string('banner')->nullable();
+            $table->unsignedBigInteger('producer_id');
             $table->timestamps();
         });
     }
