@@ -31,10 +31,13 @@ class TicketController extends Controller
             'event_id' => ['required'],
             'sector_id' => ['required'],
             'batch_id' => ['required'],
-            'coupon_id' => ['required']
         ]);
 
         $ticket = Ticket::create($input);
+
+        if ($request['coupon_id']) {
+            $ticket->coupon_id = $request['coupon_id'];
+        }
 
         if ($ticket->save()) {
             return response()->json([

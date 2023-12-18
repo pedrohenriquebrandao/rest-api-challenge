@@ -21,6 +21,11 @@ class Ticket extends Model
      */
     protected $fillable = [
         'price',
+        'producer_id',
+        'event_id',
+        'sector_id',
+        'batch_id',
+        'coupon_id'
     ];
 
     public function producer(): BelongsTo

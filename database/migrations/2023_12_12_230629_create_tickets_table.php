@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('sector_id');
             $table->unsignedBigInteger('batch_id');
-            $table->unsignedBigInteger('coupon_id');
+            $table->unsignedBigInteger('coupon_id')->nullable();
             $table->timestamps();
         });
     }
