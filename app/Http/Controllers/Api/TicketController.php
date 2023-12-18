@@ -63,6 +63,8 @@ class TicketController extends Controller
             ], 500);
         }
 
+        $coupon = $ticket->coupon ? $ticket->coupon->label :  'Not applicable';
+
         return response()->json([
             'ticket: ' => [
                 'price' => $ticket->price,
@@ -70,7 +72,7 @@ class TicketController extends Controller
                 'event' => $ticket->event->name,
                 'sector' => $ticket->sector->label,
                 'batch' => $ticket->batch->label,
-                'coupon' => $ticket->coupon->label,
+                'coupon' => $coupon,
             ]
         ], 200);
     }
@@ -89,20 +91,24 @@ class TicketController extends Controller
                 'event_id' => ['required'],
                 'sector_id' => ['required'],
                 'batch_id' => ['required'],
-                'coupon_id' => ['required']
             ]);
 
-            $ticket->label = $input['price'];
+            $ticket->price = $input['price'];
             $ticket->producer_id = $input['producer_id'];
             $ticket->event_id = $input['event_id'];
             $ticket->sector_id = $input['sector_id'];
             $ticket->batch_id = $input['batch_id'];
-            $ticket->coupon_id = $input['coupon_id'];
+
+            if ($request['coupon_id']) {
+                $ticket->coupon_id = $request['coupon_id'];
+            } else {
+                $ticket->coupon_id = null;
+            }
 
             if ($ticket->save()) {
                 return response()->json([
                     'message: ' => 'Ticket updated!',
-                    'coupon: ' => $ticket
+                    'ticket: ' => $ticket
                 ], 200);
             } else {
                 return response([
