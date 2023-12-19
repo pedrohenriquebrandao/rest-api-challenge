@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\PaymentJob;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -28,6 +29,8 @@ class PaymentController extends Controller
                 'external_id' => $request->external_id,
                 'description' => $request->description
             ]);
+
+            PaymentJob::dispatch($request);
 
             return $request;
 
