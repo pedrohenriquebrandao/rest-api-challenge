@@ -39,12 +39,13 @@ Route::post('producer/login', [AuthController::class, 'producerLogin']);
 |--------------------------------------------------------------------------
 */
 
-Route::get('admins', [AdminController::class, 'index']);
-Route::post('admins', [AdminController::class, 'store']);
-Route::get('admins/{admin}', [AdminController::class, 'show']);
-Route::put('admins/{admin}', [AdminController::class, 'update']);
-Route::delete('admins/{admin}', [AdminController::class, 'destroy']);
-
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('admins', [AdminController::class, 'index']);
+    Route::post('admins', [AdminController::class, 'store']);
+    Route::get('admins/{admin}', [AdminController::class, 'show']);
+    Route::put('admins/{admin}', [AdminController::class, 'update']);
+    Route::delete('admins/{admin}', [AdminController::class, 'destroy']);
+});
 /*
 |--------------------------------------------------------------------------
 | Client Routes
@@ -65,11 +66,13 @@ Route::middleware('auth:sanctum')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('producers', [ProducerController::class, 'index']);
-Route::post('producers', [ProducerController::class, 'store']);
-Route::get('producers/{producer}', [ProducerController::class, 'show']);
-Route::put('producers/{producer}', [ProducerController::class, 'update']);
-Route::delete('producers/{producer}', [ProducerController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('producers', [ProducerController::class, 'index']);
+    Route::post('producers', [ProducerController::class, 'store']);
+    Route::get('producers/{producer}', [ProducerController::class, 'show']);
+    Route::put('producers/{producer}', [ProducerController::class, 'update']);
+    Route::delete('producers/{producer}', [ProducerController::class, 'destroy']);
+});
 
 /*
 |--------------------------------------------------------------------------
