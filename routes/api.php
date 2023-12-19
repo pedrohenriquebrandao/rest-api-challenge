@@ -6,10 +6,10 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BatchController;
 use App\Http\Controllers\Api\CouponController;
 use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProducerController;
 use App\Http\Controllers\Api\SectorController;
 use App\Http\Controllers\Api\TicketController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -133,3 +133,11 @@ Route::get('tickets/{ticket}', [TicketController::class, 'show']);
 Route::put('tickets/{ticket}', [TicketController::class, 'update']);
 Route::delete('tickets/{ticket}', [TicketController::class, 'destroy']);
 
+/*
+|--------------------------------------------------------------------------
+| Payment Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::post('validate', [PaymentController::class, 'isValid']);
+Route::post('billing-order', [PaymentController::class, 'billingOrder']);
