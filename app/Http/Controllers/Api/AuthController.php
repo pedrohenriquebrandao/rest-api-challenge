@@ -6,13 +6,7 @@ use App\Models\Admin;
 use App\Models\Client;
 use App\Models\Producer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Response;
-
-// 6|9lxaO1CPBKWRDoHn1BaGcDjcVD1ynPNBzppgEVEm7096e81f
-
 class AuthController extends Controller
 {
     public function clientLogin(Request $request) {
