@@ -63,7 +63,10 @@ class ClientController extends Controller
         }
 
         return response()->json([
-            'Client: ' => $client
+            'Client: ' => [
+                $client,
+                $client->tickets,
+            ]
         ], 200);
     }
 

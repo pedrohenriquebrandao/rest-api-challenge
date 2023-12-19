@@ -35,6 +35,10 @@ class TicketController extends Controller
 
         $ticket = Ticket::create($input);
 
+        if (!$ticket->client_id) {
+            $ticket->client_id = $request['client_id'];
+        }
+
         if ($request['coupon_id']) {
             $ticket->coupon_id = $request['coupon_id'];
         }
@@ -140,5 +144,15 @@ class TicketController extends Controller
                 'message: ' => 'Ticket not found!',
             ], 500);
         }
+    }
+
+    public function setClient(Request $request, $id) {
+        $ticket = Ticket::find($id);
+
+        if (!$ticket->client_id) {
+            $ticket->client_id = $request['client_id'];
+        }
+
+        return $ticket;
     }
 }

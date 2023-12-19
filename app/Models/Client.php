@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -36,4 +37,9 @@ class Client extends Model
     protected $hidden = [
         'password'
     ];
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class, 'client_id');
+    }
 }

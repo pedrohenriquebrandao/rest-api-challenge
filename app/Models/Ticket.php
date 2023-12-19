@@ -21,12 +21,18 @@ class Ticket extends Model
      */
     protected $fillable = [
         'price',
+        'client_id',
         'producer_id',
         'event_id',
         'sector_id',
         'batch_id',
         'coupon_id'
     ];
+
+    public function client(): BelongsTo
+    {
+        return $this->BelongsTo(Client::class);
+    }
 
     public function producer(): BelongsTo
     {
