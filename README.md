@@ -1,9 +1,11 @@
 # Desafio API de venda de ingressos 
 
 O projeto foi desenvolvido utilizando as tecnologias:
+- **[PHP](https://www.php.net/)**
 - **[Laravel 10](https://laravel.com/)**
 - **[Docker](https://www.docker.com/)**
 - **[MySQL](https://www.mysql.com/)**
+- **[Laravel Sanctum (Autenticações)](https://laravel.com/docs/10.x/sanctum)**
 
 ## Como executar o projeto
 
