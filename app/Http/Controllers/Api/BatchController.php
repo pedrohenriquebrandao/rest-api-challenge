@@ -27,6 +27,7 @@ class BatchController extends Controller
     {
         $input = $request->validate([
             'label' => ['required'],
+            'expiration_date' => ['required'],
         ]);
 
         $batch = Batch::create($input);
@@ -70,9 +71,11 @@ class BatchController extends Controller
         if ($batch) {
             $input = $request->validate([
                 'label' => ['required'],
+                'expiration_date' => ['required'],
             ]);
 
             $batch->label = $input['label'];
+            $batch->expiration_date = $input['expiration_date'];
 
             if ($batch->save()) {
                 return response()->json([

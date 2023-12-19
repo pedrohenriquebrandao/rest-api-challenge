@@ -20,6 +20,7 @@ class Batch extends Model
      */
     protected $fillable = [
         'label',
+        'expiration_date'
     ];
 
     public function tickets(): HasMany
