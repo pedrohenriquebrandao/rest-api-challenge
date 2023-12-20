@@ -17,12 +17,18 @@ class PaymentJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $client;
+    protected $amount;
+    protected $description;
+
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(string $client, string $amount, string $description)
     {
-        //
+        $this->client = $client;
+        $this->amount = $amount;
+        $this->description = $description;
     }
 
     /**
@@ -30,7 +36,6 @@ class PaymentJob implements ShouldQueue
      */
     public function handle(): void
     {
-
-        Mail::to('phbrandao@outlook.com')->send(new PaymentMailable);
+        Mail::to('notification@test.com')->send(new PaymentMailable($this->client, $this->amount, $this->description));
     }
 }

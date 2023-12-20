@@ -13,12 +13,19 @@ class PaymentMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $client;
+    protected $amount;
+    protected $description;
+
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(string $client, string $amount, string $description)
     {
-        //
+        $this->client = $client;
+        $this->amount = $amount;
+        $this->description = $description;
     }
 
     /**
@@ -38,6 +45,11 @@ class PaymentMailable extends Mailable
     {
         return new Content(
             view: 'emails.payment',
+            with: [
+                'client' => $this->client,
+                'amount' => $this->amount,
+                'description' => $this->description,
+            ],
         );
     }
 

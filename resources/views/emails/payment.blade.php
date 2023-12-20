@@ -8,5 +8,8 @@
 </head>
 <body>
     <p>Um novo pagamento foi processado.</p>
-</body>
+    <br>
+    <p> Cliente: {{ $client }}
+    <p> Valor: {{ $amount }}
+    <p> Descrição: {{ $description }}
 </html>

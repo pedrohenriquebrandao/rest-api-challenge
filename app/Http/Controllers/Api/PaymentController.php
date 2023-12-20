@@ -21,18 +21,22 @@ class PaymentController extends Controller
                 'Authorization' => env('BEARER_INTEGRATION')
             ];
 
-            $request = Http::withHeaders(
-                $headers
-            )->post('https://ms.paggue.io/cashin/api/billing_order', [
+            $body = [
                 'payer_name' => $request->payer_name,
                 'amount' => $request->amount,
                 'external_id' => $request->external_id,
                 'description' => $request->description
-            ]);
+            ];
 
-            PaymentJob::dispatch($request);
+            $response = Http::withHeaders(
+                $headers
+            )->post('https://ms.paggue.io/cashin/api/billing_order',
+                $body
+            );
 
-            return $request;
+            PaymentJob::dispatch($request->payer_name, $request->amount, $request->description);
+
+            return $response;
 
         } catch (Exception $e){
             return response()->json(['$response' => 'Error'], 500);
