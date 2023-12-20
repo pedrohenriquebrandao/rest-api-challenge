@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 
 class ProducerController extends Controller
 {
+    public function __construct() {
+        $this->middleware(
+            ['auth:sanctum','ability:producer-store,
+            producer-update,
+            producer-delete',
+            'producer-events',
+            'producer-sectors',
+            'producer-batches',
+            'producer-coupons',
+            'producer-tickets']);
+    }
+
    /**
      * Display a listing of the resource.
      */

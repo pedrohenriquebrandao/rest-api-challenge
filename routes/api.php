@@ -39,7 +39,7 @@ Route::post('producer/login', [AuthController::class, 'producerLogin']);
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'ability:admins-index,admins-store,admins-show,admins-update,admins-destroy'])->group(function () {
     Route::get('admins', [AdminController::class, 'index']);
     Route::post('admins', [AdminController::class, 'store']);
     Route::get('admins/{admin}', [AdminController::class, 'show']);
@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'ability:client-store,client-update,client-delete,buy-ticket'])->group(function () {
     Route::get('clients', [ClientController::class, 'index']);
     Route::post('clients', [ClientController::class, 'store']);
     Route::get('clients/{client}', [ClientController::class, 'show']);
@@ -66,7 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum', 'ability:producer-store,producer-update,producer-delete')->group(function () {
     Route::get('producers', [ProducerController::class, 'index']);
     Route::post('producers', [ProducerController::class, 'store']);
     Route::get('producers/{producer}', [ProducerController::class, 'show']);
@@ -79,14 +79,14 @@ Route::middleware('auth:sanctum')->group(function () {
 | Event Routes
 |--------------------------------------------------------------------------
 */
-
-Route::get('events', [EventController::class, 'index']);
-Route::post('events', [EventController::class, 'store']);
-Route::get('events/{event}', [EventController::class, 'show']);
-Route::put('events/{event}', [EventController::class, 'update']);
-Route::delete('events/{event}', [EventController::class, 'destroy']);
-Route::get('events/producer/{event}', [EventController::class, 'getProducerName']);
-
+Route::middleware('auth:sanctum', 'ability:producer-events')->group(function () {
+    Route::get('events', [EventController::class, 'index']);
+    Route::post('events', [EventController::class, 'store']);
+    Route::get('events/{event}', [EventController::class, 'show']);
+    Route::put('events/{event}', [EventController::class, 'update']);
+    Route::delete('events/{event}', [EventController::class, 'destroy']);
+    Route::get('events/producer/{event}', [EventController::class, 'getProducerName']);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -94,11 +94,13 @@ Route::get('events/producer/{event}', [EventController::class, 'getProducerName'
 |--------------------------------------------------------------------------
 */
 
-Route::get('sectors', [SectorController::class, 'index']);
-Route::post('sectors', [SectorController::class, 'store']);
-Route::get('sectors/{sector}', [SectorController::class, 'show']);
-Route::put('sectors/{sector}', [SectorController::class, 'update']);
-Route::delete('sectors/{sector}', [SectorController::class, 'destroy']);
+Route::middleware('auth:sanctum', 'ability:producer-sectors')->group(function () {
+    Route::get('sectors', [SectorController::class, 'index']);
+    Route::post('sectors', [SectorController::class, 'store']);
+    Route::get('sectors/{sector}', [SectorController::class, 'show']);
+    Route::put('sectors/{sector}', [SectorController::class, 'update']);
+    Route::delete('sectors/{sector}', [SectorController::class, 'destroy']);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -106,11 +108,13 @@ Route::delete('sectors/{sector}', [SectorController::class, 'destroy']);
 |--------------------------------------------------------------------------
 */
 
-Route::get('batches', [BatchController::class, 'index']);
-Route::post('batches', [BatchController::class, 'store']);
-Route::get('batches/{batch}', [BatchController::class, 'show']);
-Route::put('batches/{batch}', [BatchController::class, 'update']);
-Route::delete('batches/{batch}', [BatchController::class, 'destroy']);
+Route::middleware('auth:sanctum', 'ability:producer-batches')->group(function () {
+    Route::get('batches', [BatchController::class, 'index']);
+    Route::post('batches', [BatchController::class, 'store']);
+    Route::get('batches/{batch}', [BatchController::class, 'show']);
+    Route::put('batches/{batch}', [BatchController::class, 'update']);
+    Route::delete('batches/{batch}', [BatchController::class, 'destroy']);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -118,11 +122,13 @@ Route::delete('batches/{batch}', [BatchController::class, 'destroy']);
 |--------------------------------------------------------------------------
 */
 
-Route::get('coupons', [CouponController::class, 'index']);
-Route::post('coupons', [CouponController::class, 'store']);
-Route::get('coupons/{coupon}', [CouponController::class, 'show']);
-Route::put('coupons/{coupon}', [CouponController::class, 'update']);
-Route::delete('coupons/{coupon}', [CouponController::class, 'destroy']);
+Route::middleware('auth:sanctum', 'ability:producer-coupons')->group(function () {
+    Route::get('coupons', [CouponController::class, 'index']);
+    Route::post('coupons', [CouponController::class, 'store']);
+    Route::get('coupons/{coupon}', [CouponController::class, 'show']);
+    Route::put('coupons/{coupon}', [CouponController::class, 'update']);
+    Route::delete('coupons/{coupon}', [CouponController::class, 'destroy']);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -130,12 +136,13 @@ Route::delete('coupons/{coupon}', [CouponController::class, 'destroy']);
 |--------------------------------------------------------------------------
 */
 
-Route::get('tickets', [TicketController::class, 'index']);
-Route::post('tickets', [TicketController::class, 'store']);
-Route::get('tickets/{ticket}', [TicketController::class, 'show']);
-Route::put('tickets/{ticket}', [TicketController::class, 'update']);
-Route::delete('tickets/{ticket}', [TicketController::class, 'destroy']);
-
+Route::middleware('auth:sanctum', 'ability:producer-tickets')->group(function () {
+    Route::get('tickets', [TicketController::class, 'index']);
+    Route::post('tickets', [TicketController::class, 'store']);
+    Route::get('tickets/{ticket}', [TicketController::class, 'show']);
+    Route::put('tickets/{ticket}', [TicketController::class, 'update']);
+    Route::delete('tickets/{ticket}', [TicketController::class, 'destroy']);
+});
 /*
 |--------------------------------------------------------------------------
 | Payment Routes

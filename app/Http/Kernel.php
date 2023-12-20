@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'client' => \App\Http\Middleware\Authenticate::class,
         'admin' => \App\Http\Middleware\Authenticate::class,
         'producer' => \App\Http\Middleware\Authenticate::class,
+        'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
+        'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
     ];
 }

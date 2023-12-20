@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct() {
+        $this->middleware(
+            ['auth:sanctum',
+            'ability:admins-index,admins-store,admins-show,admins-update,admins-destroy'])
+            ->only(['index','store','show','update','delete']);
+    }
+
     /**
      * Display a listing of the resource.
      */

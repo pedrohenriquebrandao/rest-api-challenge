@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    public function __construct() {
+        $this->middleware(
+            ['auth:sanctum',
+            'ability:client-store,client-update,client-delete,client-payment'])
+            ->only(['store','update','delete']);
+    }
 
     /**
      * Display a listing of the resource.
