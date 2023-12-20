@@ -28,15 +28,11 @@ class PaymentController extends Controller
                 'description' => $request->description
             ];
 
-            $response = Http::withHeaders(
-                $headers
-            )->post('https://ms.paggue.io/cashin/api/billing_order',
-                $body
-            );
+            PaymentJob::dispatch($headers, $body, $request->payer_name, $request->amount, $request->description);
 
-            PaymentJob::dispatch($request->payer_name, $request->amount, $request->description);
-
-            return $response;
+            return response()->json([
+                'Pagamento processado.'
+            ]);
 
         } catch (Exception $e){
             return response()->json(['$response' => 'Error'], 500);
