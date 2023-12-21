@@ -142,6 +142,7 @@ Route::middleware('auth:sanctum', 'ability:producer-tickets')->group(function ()
     Route::get('tickets/{ticket}', [TicketController::class, 'show']);
     Route::put('tickets/{ticket}', [TicketController::class, 'update']);
     Route::delete('tickets/{ticket}', [TicketController::class, 'destroy']);
+    Route::post('createTicketsWithQuantity/{quantity}', [TicketController::class, 'createTicketsWithQuantity']);
 });
 /*
 |--------------------------------------------------------------------------

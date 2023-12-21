@@ -155,4 +155,15 @@ class TicketController extends Controller
 
         return $ticket;
     }
+
+    public function createTicketsWithQuantity(Request $request, $quantity) {
+
+       for ($count=0; $count < $quantity; $count++) {
+            $this->store($request);
+       }
+
+       return response()->json([
+        'message: ' . $quantity . ' tickets created!'
+       ]);
+    }
 }
