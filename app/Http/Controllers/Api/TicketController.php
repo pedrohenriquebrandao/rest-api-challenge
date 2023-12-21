@@ -146,6 +146,9 @@ class TicketController extends Controller
         }
     }
 
+    /**
+     * Associate a client to a ticket.
+     */
     public function setClient(Request $request, $id) {
         $ticket = Ticket::find($id);
 
@@ -156,6 +159,9 @@ class TicketController extends Controller
         return $ticket;
     }
 
+    /**
+     * Create multiple tickets according to a quantity.
+     */
     public function createTicketsWithQuantity(Request $request, $quantity) {
 
        for ($count=0; $count < $quantity; $count++) {
