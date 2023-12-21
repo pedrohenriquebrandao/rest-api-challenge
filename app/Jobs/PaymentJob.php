@@ -39,16 +39,14 @@ class PaymentJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle()
+    public function handle(): void
     {
-        $response = Http::withHeaders(
+        Http::withHeaders(
             $this->headers
         )->post('https://ms.paggue.io/cashin/api/billing_order',
             $this->body
         );
 
         Mail::to('notification@test.com')->send(new PaymentMailable($this->client, $this->amount, $this->description));
-
-        return $response;
     }
 }
