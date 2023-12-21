@@ -18,7 +18,7 @@ class PaymentController extends Controller
                 'X-Company-ID' => '11658',
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-                'Authorization' => env('BEARER_INTEGRATION')
+                'Authorization' => $_SERVER['HTTP_AUTHORIZATION']
             ];
 
             $body = [
