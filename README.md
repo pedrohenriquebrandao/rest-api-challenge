@@ -31,5 +31,5 @@ Para acessar o ambiente do `phpmyadmin`, acesse a rota `localhost:8080` e utiliz
 user: sail
 password: password 
 ```
-
+Os endpoints da API podem ser utilizados a partir da rota `localhost/api/`
 
