@@ -48,4 +48,9 @@ Para acessar o ambiente do `phpmyadmin`, acesse a rota `localhost:8080` e utiliz
 user: sail
 password: password 
 ```
-Os endpoints da API podem ser utilizados a partir da rota `localhost/api/`
+Os endpoints da API podem ser utilizados a partir da rota `localhost/api/`, e podem ser acessados pelo Postman
+
+```
+https://warped-shadow-705823.postman.co/workspace/Team-Workspace~f2555b64-cc12-4607-821c-27b80e35aa3e/collection/12508106-3b624e27-fbce-44fd-bc23-592ea4916253?action=share&creator=12508106
+```
+
