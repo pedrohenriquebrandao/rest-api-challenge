@@ -27,6 +27,9 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Auth Routes
 |--------------------------------------------------------------------------
+|
+| Geram bearer tokens para cada tipo de usuário cadastrado
+| no banco de dados
 */
 
 Route::post('admin/login', [AuthController::class, 'adminLogin']);
