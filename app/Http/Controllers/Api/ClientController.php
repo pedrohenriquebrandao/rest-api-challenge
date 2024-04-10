@@ -12,7 +12,7 @@ class ClientController extends Controller
         $this->middleware(
             ['auth:sanctum',
             'ability:client-store,client-update,client-delete,client-payment'])
-            ->only(['store','update','delete']);
+            ->only(['index','store','update','delete']);
     }
 
     /**
@@ -95,7 +95,7 @@ class ClientController extends Controller
             $client->name = $input['name'];
             $client->phone = $input['phone'];
             $client->socialNumber = $input['socialNumber'];
-            $client->password = $input['password'];
+            $client->password = bcrypt($input['password']);
 
             if($client->save()){
                 return response()->json([

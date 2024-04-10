@@ -91,7 +91,7 @@ class AdminController extends Controller
             $admin->name = $input['name'];
             $admin->phone = $input['phone'];
             $admin->socialNumber = $input['socialNumber'];
-            $admin->password = $input['password'];
+            $admin->password = bcrypt($input['password']);
 
             if($admin->save()){
                 return response()->json([

@@ -10,14 +10,7 @@ class ProducerController extends Controller
 {
     public function __construct() {
         $this->middleware(
-            ['auth:sanctum','ability:producer-store,
-            producer-update,
-            producer-delete',
-            'producer-events',
-            'producer-sectors',
-            'producer-batches',
-            'producer-coupons',
-            'producer-tickets']);
+            ['auth:sanctum','ability:producer-index,producer-store,producer-update,producer-delete,producer-events,producer-sectors,producer-batches,producer-coupons,producer-tickets']);
     }
 
    /**
@@ -97,7 +90,7 @@ class ProducerController extends Controller
             $producer->name = $input['name'];
             $producer->phone = $input['phone'];
             $producer->socialNumber = $input['socialNumber'];
-            $producer->password = $input['password'];
+            $producer->password = bcrypt($input['password']);
 
             if($producer->save()){
                 return response()->json([
