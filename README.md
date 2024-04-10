@@ -16,6 +16,9 @@ git clone https://github.com/pedrohenriquebrandao/rest-api-challenge
 
 Acesse a pasta do projeto e inicialize o container do Docker: 
 ```
+./vendor/bin/sail composer install
+```
+```
 ./vendor/bin/sail up -d
 ```
 O projeto poderá ser acessado na rota `localhost`
@@ -25,6 +28,20 @@ Execute as migrations:
 ./vendor/bin/sail php artisan migrate
 ```
 
+Execute as seeds: 
+```
+php artisan db:seed --class=RolesSeeder  
+```
+```
+php artisan db:seed --class=AdminSeeder  
+```
+```
+php artisan db:seed --class=ClienteSeeder  
+```
+```
+php artisan db:seed --class=ProducersSeeder  
+```
+
 Para acessar o ambiente do `phpmyadmin`, acesse a rota `localhost:8080` e utilize as credenciais:
 
 ```
@@ -32,4 +49,3 @@ user: sail
 password: password 
 ```
 Os endpoints da API podem ser utilizados a partir da rota `localhost/api/`
-
