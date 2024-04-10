@@ -28,7 +28,7 @@ class AuthController extends Controller
         $admin = Admin::where('socialNumber', $request->socialNumber)->first();
 
         if ($admin && Hash::check($request->password, $admin->password)) {
-          $token =  $admin->createToken('admin-token', ['list-admins'], expiresAt:now()->addDay())->plainTextToken;
+          $token =  $admin->createToken('admin-token', ['admins-index', 'admins-store', 'admins-show', 'admins-update', 'admins-destroy'], expiresAt:now()->addDay())->plainTextToken;
 
           return response()->json([
             'token' => $token
@@ -43,7 +43,7 @@ class AuthController extends Controller
         $producer = Producer::where('socialNumber', $request->socialNumber)->first();
 
         if ($producer && Hash::check($request->password, $producer->password)) {
-          $token =  $producer->createToken('producer-token', ['producer-store,producer-update,
+          $token =  $producer->createToken('producer-token', ['producer-index,producer-store,producer-update,
           producer-delete','producer-events','producer-sectors','producer-batches','producer-coupons','producer-tickets'],expiresAt:now()->addDay())->plainTextToken;
 
           return response()->json([

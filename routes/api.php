@@ -69,7 +69,7 @@ Route::middleware(['auth:sanctum', 'ability:client-store,client-update,client-de
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth:sanctum', 'ability:producer-store,producer-update,producer-delete')->group(function () {
+Route::middleware('auth:sanctum', 'ability:producer-index,producer-store,producer-update,producer-delete')->group(function () {
     Route::get('producers', [ProducerController::class, 'index']);
     Route::post('producers', [ProducerController::class, 'store']);
     Route::get('producers/{producer}', [ProducerController::class, 'show']);
